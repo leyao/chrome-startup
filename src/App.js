@@ -21,11 +21,15 @@ class ChromeStartup extends Component {
       var time = new Date();
       var timeInMs = time.getHours() * Constants.HOUR_IN_MS + time.getMinutes() * Constants.MINUTE_IN_MS +
                      time.getSeconds() * Constants.SECOND_IN_MS + time.getMilliseconds();
+      var bgColour = Math.round(timeInMs / Constants.DAY_IN_MS * Constants.MAX_HEX_VALUE).toString(16)
+      if (bgColour.length < 6) {
+        bgColour = '0'.repeat(6 - bgColour.length) + bgColour;
+      }
 
       this.setState({
         curDate: time.toLocaleString('en-US', dateOptions),
         curTime: time.toLocaleString('en-US', timeOptions),
-        bgColour: Math.round(timeInMs / Constants.DAY_IN_MS * Constants.MAX_HEX_VALUE).toString(16)
+        bgColour: bgColour
       });
     }, 1000);
   }
